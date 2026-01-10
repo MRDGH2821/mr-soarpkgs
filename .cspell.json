@@ -1,12 +1,21 @@
 {
+  "allowCompoundWords": true,
+  "caseSensitive": false,
   "language": "en,en-gb",
+  "useGitignore": true,
   "words": [
     "armv",
+    "editmsg",
     "elif",
     "esac",
     "msys",
     "ostype",
+    "pkgs",
     "sbuild",
-    "Pkgs"
+    "mtkennerly",
+    "ludusavi",
+    "MRDGH",
+    "soarpkgs",
+    "pkgver"
   ]
 }
