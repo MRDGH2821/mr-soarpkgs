@@ -1,0 +1,57 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+
+app_id: com.github.mtkennerly.ludusavi
+category:
+  - Utility
+description: Backup tool for PC game saves.
+homepage:
+  - https://github.com/mtkennerly/ludusavi
+icon:
+  url: https://github.com/mtkennerly/ludusavi/raw/refs/heads/master/assets/icon.svg
+license:
+  - id: MIT
+    url: https://github.com/mtkennerly/ludusavi/raw/main/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - Refer https://github.com/mtkennerly/ludusavi?tab=readme-ov-file#community to add more manifests
+pkg: ludusavi
+pkg_id: mr-soarpkgs-github.com.mtkennerly.ludusavi
+pkg_type: static
+provides:
+  - ludusavi
+repology:
+  - ludusavi
+src_url:
+  - https://github.com/mtkennerly/ludusavi
+tag:
+  - cli
+  - steam
+  - gui
+  - games
+  - backup
+  - cross-platform
+  - videogames
+  - saves
+  - steam-proton
+  - steamdeck
+  - steam-deck
+x_exec:
+  os:
+    - linux
+  pkgver: |
+    curl -qfsSL "https://api.github.com/repos/mtkennerly/ludusavi/releases/latest" | jq -r '.tag_name'
+  run: |
+      soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "s${SBUILD_OUTDIR}/${PKG}" --yes
+      file=${SBUILD_OUTDIR}/${PKG}
+      dest_dir=${SBUILD_OUTDIR}/${SBUILD_PKG}
+      if [[ "${file}" == *.tar.gz ]] || [[ "${file}" == *.tgz ]]; then
+        echo "Extracting tar.gz archive: ${file}"
+        tar -xzf "${file}" -C "${dest_dir}"
+      elif [[ "${file}" == *.zip ]]; then
+        echo "Extracting zip archive: ${file}"
+        unzip -q "${file}" -d "${dest_dir}"
+      fi
+
+  shell: bash
