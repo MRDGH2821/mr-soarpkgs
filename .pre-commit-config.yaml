@@ -11,16 +11,19 @@ repos:
     repo: https://github.com/gitguardian/ggshield
     rev: v1.46.0
   - hooks:
-      - id: commit-me
+      - args:
+          - --config
+          - .commit-me.json
+        id: commit-me
         priority: 2
         stages:
           - commit-msg
     repo: https://github.com/dev-build-deploy/commit-me
     rev: v0.12.0
   - hooks:
-      - id: cspell # Spell check changed files
-        args:
+      - args:
           - --config .cspell.json
+        id: cspell # Spell check changed files
       - always_run: true # This might not be necessary.
         args:
           - --no-must-find-files
