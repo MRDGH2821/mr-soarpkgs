@@ -39,17 +39,11 @@ tag:
 x_exec:
   os:
     - linux
-  pkgver: |
-    curl -qfsSL "https://api.github.com/repos/mtkennerly/ludusavi/releases/latest" | jq -r '.tag_name'
+  pkgver: curl -qfsSL "https://api.github.com/repos/mtkennerly/ludusavi/releases/latest" | jq -r '.tag_name'
   run: |
     soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "s${SBUILD_OUTDIR}/${PKG}" --yes
     file=${SBUILD_OUTDIR}/${PKG}
     dest_dir=${SBUILD_OUTDIR}/${SBUILD_PKG}
-    if [[ "${file}" == *.tar.gz ]] || [[ "${file}" == *.tgz ]]; then
-      echo "Extracting tar.gz archive: ${file}"
-      tar -xzf "${file}" -C "${dest_dir}"
-    elif [[ "${file}" == *.zip ]]; then
-      echo "Extracting zip archive: ${file}"
-      unzip -q "${file}" -d "${dest_dir}"
-    fi
+    echo "Extracting tar.gz archive: ${file}"
+    tar -xzf "${file}" -C "${dest_dir}"
   shell: bash
