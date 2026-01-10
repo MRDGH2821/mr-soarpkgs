@@ -11,13 +11,15 @@ repos:
     repo: https://github.com/gitguardian/ggshield
     rev: v1.46.0
   - hooks:
-      - args:
-          - --config
-          - .commit-me.json
-        id: commit-me
+      - always_run: true
+        args:
+          - --scopes=cspell,vscode,zed
+        id: conventional-precommit-linter
         priority: 2
-    repo: https://github.com/dev-build-deploy/commit-me
-    rev: v0.12.0
+        stages:
+          - commit-msg
+    repo: https://github.com/espressif/conventional-precommit-linter
+    rev: v1.11.0 # The version tag you wish to use
   - hooks:
       - args:
           - --config .cspell.json
