@@ -1,0 +1,36 @@
+default_install_hook_types:
+  - commit-msg
+  - pre-commit
+repos:
+  - hooks:
+      - id: ggshield
+        language_version: python3
+        priority: 1
+        stages:
+          - pre-commit
+    repo: https://github.com/gitguardian/ggshield
+    rev: v1.46.0
+  - hooks:
+      - id: commit-me
+        priority: 2
+        stages:
+          - commit-msg
+    repo: https://github.com/dev-build-deploy/commit-me
+    rev: v0.12.0
+  - hooks:
+      - id: cspell # Spell check changed files
+        args:
+          - --config .cspell.json
+      - always_run: true # This might not be necessary.
+        args:
+          - --no-must-find-files
+          - --no-progress
+          - --no-summary
+          - --files
+          - .git/COMMIT_EDITMSG
+        id: cspell # Spell check the commit message
+        name: Check commit message spelling
+        stages:
+          - commit-msg
+    repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v9.4.0
