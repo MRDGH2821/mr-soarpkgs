@@ -1,6 +1,5 @@
 #!/SBUILD ver @v1.0.0
 _disabled: false
-
 app_id: com.github.mtkennerly.ludusavi
 category:
   - Utility
@@ -43,15 +42,14 @@ x_exec:
   pkgver: |
     curl -qfsSL "https://api.github.com/repos/mtkennerly/ludusavi/releases/latest" | jq -r '.tag_name'
   run: |
-      soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "s${SBUILD_OUTDIR}/${PKG}" --yes
-      file=${SBUILD_OUTDIR}/${PKG}
-      dest_dir=${SBUILD_OUTDIR}/${SBUILD_PKG}
-      if [[ "${file}" == *.tar.gz ]] || [[ "${file}" == *.tgz ]]; then
-        echo "Extracting tar.gz archive: ${file}"
-        tar -xzf "${file}" -C "${dest_dir}"
-      elif [[ "${file}" == *.zip ]]; then
-        echo "Extracting zip archive: ${file}"
-        unzip -q "${file}" -d "${dest_dir}"
-      fi
-
+    soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "s${SBUILD_OUTDIR}/${PKG}" --yes
+    file=${SBUILD_OUTDIR}/${PKG}
+    dest_dir=${SBUILD_OUTDIR}/${SBUILD_PKG}
+    if [[ "${file}" == *.tar.gz ]] || [[ "${file}" == *.tgz ]]; then
+      echo "Extracting tar.gz archive: ${file}"
+      tar -xzf "${file}" -C "${dest_dir}"
+    elif [[ "${file}" == *.zip ]]; then
+      echo "Extracting zip archive: ${file}"
+      unzip -q "${file}" -d "${dest_dir}"
+    fi
   shell: bash
