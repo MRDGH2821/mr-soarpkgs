@@ -10,7 +10,7 @@ icon:
   url: https://github.com/mtkennerly/ludusavi/raw/refs/heads/master/assets/icon.svg
 license:
   - id: MIT
-    url: https://github.com/mtkennerly/ludusavi/raw/main/LICENSE
+    url: https://github.com/mtkennerly/ludusavi/raw/refs/heads/master/LICENSE
 maintainer:
   - MRDGH2821 (https://github.com/MRDGH2821)
 note:
@@ -41,9 +41,10 @@ x_exec:
     - linux
   pkgver: curl -qfsSL "https://api.github.com/repos/mtkennerly/ludusavi/releases/latest" | jq -r '.tag_name'
   run: |
-    soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "s${SBUILD_OUTDIR}/${PKG}" --yes
+    soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "${SBUILD_OUTDIR}/${PKG}" --yes
     file=${SBUILD_OUTDIR}/${PKG}
     dest_dir=${SBUILD_OUTDIR}/${SBUILD_PKG}
+    mkdir -p "${dest_dir}"
     echo "Extracting tar.gz archive: ${file}"
     tar -xzf "${file}" -C "${dest_dir}"
   shell: bash
