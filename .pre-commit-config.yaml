@@ -16,8 +16,6 @@ repos:
           - .commit-me.json
         id: commit-me
         priority: 2
-        stages:
-          - commit-msg
     repo: https://github.com/dev-build-deploy/commit-me
     rev: v0.12.0
   - hooks:
