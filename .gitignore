@@ -1,3 +1,4 @@
 *.yaml.pkgver
 *.yaml.validated
 .ignore
+megalinter-reports
