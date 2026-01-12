@@ -41,10 +41,6 @@ x_exec:
     - linux
   pkgver: curl -qfsSL "https://api.github.com/repos/mtkennerly/ludusavi/releases/latest" | jq -r '.tag_name'
   run: |
-    soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "${SBUILD_OUTDIR}/${PKG}" --yes
-    file=${SBUILD_OUTDIR}/${PKG}
-    dest_dir=${SBUILD_OUTDIR}/${SBUILD_PKG}
-    mkdir -p "${dest_dir}"
-    echo "Extracting tar.gz archive: ${file}"
-    tar -xzf "${file}" -C "${dest_dir}"
+    soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "SBUILD_TEMP/${PKG}" --yes
+    tar -xzf "SBUILD_TEMP/${PKG}" -C "${SBUILD_OUTDIR}"
   shell: bash
