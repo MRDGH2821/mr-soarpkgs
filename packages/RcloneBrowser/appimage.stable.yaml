@@ -1,0 +1,48 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+category:
+  - Utility
+description: Simple cross platform GUI for rclone. Supports macOS, GNU/Linux, BSD family and Windows.
+homepage:
+  - https://github.com/kapitainsky/RcloneBrowser
+icon:
+  url: https://raw.githubusercontent.com/kapitainsky/RcloneBrowser/refs/heads/master/assets/rclone-browser.svg
+license:
+  - id: MIT
+    url: https://raw.githubusercontent.com/kapitainsky/RcloneBrowser/refs/heads/master/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+pkg: rclone-browser
+pkg_id: mr-soarpkgs-github.com.kapitainsky.RcloneBrowser
+pkg_type: appimage
+provides:
+  - rclone-browser
+repology:
+  - rclone-browser
+src_url:
+  - https://github.com/kapitainsky/RcloneBrowser
+tag:
+  - rclone
+  - rclone-browser
+x_exec:
+  arch:
+    - x86_64
+  os:
+    - linux
+  pkgver: curl -qfsSL "https://api.github.com/repos/kapitainsky/RcloneBrowser/releases/latest" | jq -r '.tag_name'
+  run: |
+    if grep -qi "raspberry pi" /proc/device-tree/model 2>/dev/null || grep -qi "raspberry pi" /proc/cpuinfo 2>/dev/null; then
+      os="raspberrypi"
+    else
+      os="linux"
+    fi
+    case "$(uname -m)" in
+    x86_64 | amd64) arch="x86_64" ;;
+    i386 | i686) arch="i386" ;;
+    aarch64 | arm64) arch="aarch64" ;;
+    armv7* | armhf) arch="armhf" ;;
+    armv6* | arm*) arch="arm" ;;
+    *) exit 1 ;;
+    esac
+    soar dl "https://github.com/kapitainsky/RcloneBrowser" --glob "*-${os}-${arch}.appimage" -o "${SBUILD_OUTDIR}/${PKG}" --yes
+  shell: bash
