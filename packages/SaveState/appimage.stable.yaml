@@ -23,7 +23,7 @@ pkg_type: appimage
 provides:
   - SaveState
 repology:
-  - SaveState
+  - savestate
 src_url:
   - https://github.com/Matteo842/SaveState/
 tag:

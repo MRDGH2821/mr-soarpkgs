@@ -24,7 +24,7 @@ pkg_type: appimage
 provides:
   - PINCE
 repology:
-  - PINCE
+  - pince
 src_url:
   - https://github.com/korcankaraokcu/PINCE/
 tag:
