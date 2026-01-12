@@ -7,5 +7,14 @@
     "label": "Build Package",
     "reveal_target": "center",
     "tags": ["build"]
+  },
+  {
+    "allow_concurrent_runs": true,
+    "args": ["$ZED_FILE"],
+    "command": "sbuild-linter",
+    "hide": "never",
+    "label": "Lint Package",
+    "reveal_target": "center",
+    "tags": ["lint"]
   }
 ]
