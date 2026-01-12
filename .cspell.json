@@ -17,6 +17,7 @@
   "words": [
     "armhf",
     "armv",
+    ".v8rignore",
     "bunx",
     "configurator",
     "devmatteini",
