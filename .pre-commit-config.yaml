@@ -49,7 +49,6 @@ repos:
           - commit-msg
     repo: https://github.com/streetsidesoftware/cspell-cli
     rev: v9.4.0
-
   - hooks:
       - args:
           - mega-linter-runner
@@ -109,7 +108,6 @@ repos:
           - push
     repo: https://github.com/oxsecurity/megalinter
     rev: v6.8.0 # Git tag specifying the hook, not mega-linter-runner, version
-
   - hooks:
       # Prevent committing inline conflict markers
       - args:
