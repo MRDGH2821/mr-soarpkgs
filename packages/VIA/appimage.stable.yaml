@@ -1,0 +1,48 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+category:
+  - Utility
+description: VIA is a powerful, open-source web-based interface for configuring your QMK-powered mechanical keyboard.
+homepage:
+  - https://usevia.app/
+  - https://caniusevia.com/
+  - https://github.com/the-via
+icon:
+  url: https://raw.githubusercontent.com/the-via/website/refs/heads/master/static/mstile-144x144.png
+license:
+  - id: GPL3
+    url: https://raw.githubusercontent.com/the-via/releases/refs/heads/master/LICENSE
+  - id: GPL3
+    url: https://raw.githubusercontent.com/the-via/website/refs/heads/master/LICENSE
+  - id: GPL3
+    url: https://raw.githubusercontent.com/the-via/app/refs/heads/main/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - Check your supported keyboards here - https://www.caniusevia.com/docs/supported_keyboards
+pkg: VIA
+pkg_id: mr-soarpkgs-github.com.the-via.VIA
+pkg_type: appimage
+provides:
+  - VIA
+repology:
+  - via-keyboard-configurator
+src_url:
+  - https://github.com/the-via/releases
+  - https://github.com/the-via/website
+  - https://github.com/the-via/app
+tag:
+  - customization
+  - firmware
+  - keyboard
+  - keymaps
+  - macros
+  - qmk
+  - rgb
+  - via
+x_exec:
+  os:
+    - linux
+  pkgver: curl -qfsSL "https://api.github.com/repos/the-via/releases/releases/latest" | jq -r '.tag_name'
+  run: soar dl "https://github.com/the-via/releases" --match "appimage" -o "${SBUILD_OUTDIR}/${PKG}" --yes
+  shell: bash
