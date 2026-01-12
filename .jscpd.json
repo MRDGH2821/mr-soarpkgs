@@ -6,8 +6,10 @@
     "**/.git/**",
     "**/.github/**",
     "**/.idea/**",
+    "**/.ignore/**",
     "**/.rbenv/**",
     "**/.venv/**",
+    "**/megalinter-reports/**",
     "**/node_modules/**",
     "**/report/**"
   ],
