@@ -36,6 +36,7 @@
     "sbuild",
     "soarpkgs",
     "stefanzweifel",
+    "v8rignore",
     "venv"
   ]
 }
