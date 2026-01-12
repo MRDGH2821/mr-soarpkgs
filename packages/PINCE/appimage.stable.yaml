@@ -1,0 +1,54 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+category:
+  - Utility
+description: Reverse engineering tool for linux games.
+homepage:
+  - https://github.com/korcankaraokcu/PINCE/
+icon:
+  url: https://raw.githubusercontent.com/korcankaraokcu/PINCE/refs/heads/master/media/logo/ozgurozbek/pince_big_transparent.png
+license:
+  - id: GPL3
+    url: https://raw.githubusercontent.com/korcankaraokcu/PINCE/refs/heads/master/COPYING
+  - id: CC-BY
+    url: https://raw.githubusercontent.com/korcankaraokcu/PINCE/refs/heads/master/COPYING.CC-BY
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - The original author of this package says to not trust any sources other than the ones listed here - https://github.com/korcankaraokcu/PINCE?tab=readme-ov-file#trusted-sources
+  - But PINCE appimage is directly downloaded from the official repository.
+  - Check the SBUILD config here - https://github.com/MRDGH2821/mr-soarpkgs/blob/main/packages/PINCE/appimage.stable.yaml
+pkg: PINCE
+pkg_id: mr-soarpkgs-github.com.korcankaraokcu.PINCE
+pkg_type: static
+provides:
+  - PINCE
+repology:
+  - PINCE
+src_url:
+  - https://github.com/korcankaraokcu/PINCE/
+tag:
+  - assembler
+  - cheat-engine
+  - debugging-tool
+  - disassembler
+  - dissect-code
+  - game-hacking
+  - gdb
+  - gdb-python-scripts
+  - hex-editor
+  - injection
+  - memory-hacking
+  - opcode-searcher
+  - patcher
+  - python3
+  - reverse-engineering
+  - tracer
+x_exec:
+  os:
+    - linux
+  arch:
+    - x86_64
+  pkgver: curl -qfsSL "https://api.github.com/repos/korcankaraokcu/PINCE/releases/latest" | jq -r '.tag_name'
+  run: soar dl "https://github.com/korcankaraokcu/PINCE" --match "appimage" -o "${SBUILD_OUTDIR}/${PKG}" --yes
+  shell: bash
