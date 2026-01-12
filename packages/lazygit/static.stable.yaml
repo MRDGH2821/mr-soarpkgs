@@ -1,0 +1,59 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+category:
+  - Utility
+description: Simple terminal UI for git commands.
+homepage:
+  - https://github.com/jesseduffield/lazygit/
+icon:
+  url: https://user-images.githubusercontent.com/8456633/174470852-339b5011-5800-4bb9-a628-ff230aa8cd4e.png
+license:
+  - id: MIT
+    url: https://raw.githubusercontent.com/jesseduffield/lazygit/refs/heads/master/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - Refer https://github.com/jesseduffield/lazygit?tab=readme-ov-file#table-of-contents to see usage instructions & configuration.
+pkg: lazygit
+pkg_id: mr-soarpkgs-github.com.jesseduffield.lazygit
+pkg_type: static
+provides:
+  - lazygit
+repology:
+  - lazygit
+src_url:
+  - https://github.com/jesseduffield/lazygit/
+tag:
+  - cli
+  - git
+  - terminal
+x_exec:
+  arch:
+    - aarch64
+    - x86_64
+  os:
+    - linux
+    - freebsd
+  pkgver: curl -qfsSL "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | jq -r '.tag_name'
+  run: |
+    detect_os() {
+      case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
+      linux*) echo "Linux" ;;
+      freebsd*) echo "FreeBSD" ;;
+      *) exit 1 ;;
+      esac
+    }
+    detect_arch() {
+      case "$(uname -m)" in
+      x86_64 | amd64) echo "x86_64" ;;
+      i386 | i686) echo "32-bit" ;;
+      aarch64 | arm64) echo "arm64" ;;
+      armv6l | armv6) echo "armv6" ;;
+      *) exit 1 ;;
+      esac
+    }
+    os=$(detect_os)
+    arch=$(detect_arch)
+    soar dl "https://github.com/jesseduffield/lazygit" --match "${os},${arch}" -o "SBUILD_TEMP/${PKG}" --yes
+    tar -xzf "SBUILD_TEMP/${PKG}" -C "${SBUILD_OUTDIR}"
+  shell: bash
