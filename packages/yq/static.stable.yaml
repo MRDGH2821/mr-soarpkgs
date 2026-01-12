@@ -1,0 +1,84 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+category:
+  - Utility
+description: Simple terminal UI for git commands.
+homepage:
+  - https://github.com/mikefarah/yq
+license:
+  - id: MIT
+    url: https://raw.githubusercontent.com/mikefarah/yq/refs/heads/master/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - Refer https://mikefarah.gitbook.io/yq/ to see usage instructions & configuration.
+pkg: yq
+pkg_id: mr-soarpkgs-github.com.mikefarah.yq
+pkg_type: static
+provides:
+  - yq
+repology:
+  - yq-mikefarah
+src_url:
+  - https://github.com/mikefarah/yq
+tag:
+  - bash
+  - cli
+  - csv
+  - devops-tools
+  - golang
+  - hcl
+  - json
+  - portable
+  - properties
+  - splat
+  - terraform
+  - toml
+  - xml
+  - yaml
+  - yaml-processor
+x_exec:
+  arch:
+    - aarch64
+    - riscv64
+    - x86_64
+  os:
+    - freebsd
+    - linux
+    - netbsd
+    - openbsd
+  pkgver: curl -qfsSL "https://api.github.com/repos/mikefarah/yq/releases/latest" | jq -r '.tag_name'
+  run: |
+    detect_os() {
+      case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
+      linux*) echo "linux" ;;
+      freebsd*) echo "freebsd" ;;
+      openbsd*) echo "openbsd" ;;
+      netbsd*) echo "netbsd" ;;
+      *) exit 1 ;;
+      esac
+    }
+    detect_arch() {
+      case "$(uname -m)" in
+      x86_64 | amd64) echo "amd64" ;;
+      i386 | i686) echo "386" ;;
+      aarch64 | arm64) echo "arm64" ;;
+      armv6l | armv6) echo "armv6" ;;
+      arm*) echo "arm" ;;
+      loongarch64 | loong64) echo "loong64" ;;
+      mips64el | mips64le) echo "mips64le" ;;
+      mips64) echo "mips64" ;;
+      mipsel | mipsle) echo "mipsle" ;;
+      mips) echo "mips" ;;
+      ppc64le) echo "ppc64le" ;;
+      ppc64) echo "ppc64" ;;
+      riscv64) echo "riscv64" ;;
+      s390x) echo "s390x" ;;
+      *) exit 1 ;;
+      esac
+    }
+    os=$(detect_os)
+    arch=$(detect_arch)
+    soar dl "https://github.com/mikefarah/yq" --glob "yq_${os}_${arch}" --exclude ".tar.gz" -o "${SBUILD_OUTDIR}/${PKG}" --yes
+    chmod +x "${SBUILD_OUTDIR}/${PKG}"
+  shell: bash
