@@ -20,7 +20,7 @@ note:
   - Check the SBUILD config here - https://github.com/MRDGH2821/mr-soarpkgs/blob/main/packages/PINCE/appimage.stable.yaml
 pkg: PINCE
 pkg_id: mr-soarpkgs-github.com.korcankaraokcu.PINCE
-pkg_type: static
+pkg_type: appimage
 provides:
   - PINCE
 repology:
@@ -45,10 +45,10 @@ tag:
   - reverse-engineering
   - tracer
 x_exec:
-  os:
-    - linux
   arch:
     - x86_64
+  os:
+    - linux
   pkgver: curl -qfsSL "https://api.github.com/repos/korcankaraokcu/PINCE/releases/latest" | jq -r '.tag_name'
   run: soar dl "https://github.com/korcankaraokcu/PINCE" --match "appimage" -o "${SBUILD_OUTDIR}/${PKG}" --yes
   shell: bash
