@@ -1,0 +1,11 @@
+[
+  {
+    "allow_concurrent_runs": false,
+    "args": ["build", "$ZED_FILE"],
+    "command": "sbuild",
+    "hide": "never",
+    "label": "Build Package",
+    "reveal_target": "center",
+    "tags": ["build"]
+  }
+]
