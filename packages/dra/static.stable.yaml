@@ -57,10 +57,9 @@ x_exec:
     }
     arch=$(detect_arch)
     libc=$(detect_libc)
-    soar dl "https://github.com/devmatteini/dra" --match "${arch},linux,${libc}" -o "SBUILD_TEMP/${PKG}" --yes
     temp_extract="SBUILD_TEMP/extract_$$"
     mkdir -p "${temp_extract}"
-    tar -xzf "SBUILD_TEMP/${PKG}" -C "${temp_extract}"
+    soar dl "https://github.com/devmatteini/dra" --match "${arch},linux,${libc}" -o "SBUILD_TEMP/${PKG}" --yes --extract --extract-dir "${temp_extract}"
     # Find and move the binary to output directory
     find "${temp_extract}" -type f -executable -exec mv {} "${SBUILD_OUTDIR}/" \;
   shell: bash

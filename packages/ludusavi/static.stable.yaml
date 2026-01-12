@@ -40,7 +40,5 @@ x_exec:
   os:
     - linux
   pkgver: curl -qfsSL "https://api.github.com/repos/mtkennerly/ludusavi/releases/latest" | jq -r '.tag_name'
-  run: |
-    soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "SBUILD_TEMP/${PKG}" --yes
-    tar -xzf "SBUILD_TEMP/${PKG}" -C "${SBUILD_OUTDIR}"
+  run: soar dl "https://github.com/mtkennerly/ludusavi" --match "linux" -o "SBUILD_TEMP/${PKG}" --yes --extract --extract-dir "${SBUILD_OUTDIR}"
   shell: bash

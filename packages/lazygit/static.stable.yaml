@@ -54,6 +54,5 @@ x_exec:
     }
     os=$(detect_os)
     arch=$(detect_arch)
-    soar dl "https://github.com/jesseduffield/lazygit" --match "${os},${arch}" -o "SBUILD_TEMP/${PKG}" --yes
-    tar -xzf "SBUILD_TEMP/${PKG}" -C "${SBUILD_OUTDIR}"
+    soar dl "https://github.com/jesseduffield/lazygit" --match "${os},${arch}" -o "SBUILD_TEMP/${PKG}" --yes --extract --extract-dir "${SBUILD_OUTDIR}"
   shell: bash
