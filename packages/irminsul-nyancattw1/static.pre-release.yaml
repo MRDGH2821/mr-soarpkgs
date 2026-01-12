@@ -1,0 +1,41 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+category:
+  - Utility
+description: Data exporter for Genshin Impact. NyanCatTW1 fork.
+homepage:
+  - https://github.com/NyanCatTW1/irminsul
+icon:
+  url: https://raw.githubusercontent.com/NyanCatTW1/irminsul/refs/heads/main/assets/icon-256.png
+license:
+  - id: MIT
+    url: https://raw.githubusercontent.com/NyanCatTW1/irminsul/refs/heads/main/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - Refer https://github.com/NyanCatTW1/irminsul?tab=readme-ov-file#command-line-options to see usage instructions & configuration.
+  - This is a pre-release version of the package.
+pkg: irminsul
+pkg_id: mr-soarpkgs-github.com.NyanCatTW1.irminsul.pre-release
+pkg_type: static
+provides:
+  - irminsul
+src_url:
+  - https://github.com/NyanCatTW1/irminsul
+tag:
+  - cli
+  - data export
+  - game
+  - genshin impact
+  - genshin optimiser
+  - terminal
+x_exec:
+  arch:
+    - aarch64
+    - x86_64
+  os:
+    - linux
+    - freebsd
+  pkgver: curl -qfsSL "https://api.github.com/repos/NyanCatTW1/irminsul/releases" | jq -r '[.[] | select(.prerelease == true)][0].tag_name'
+  run: soar dl --github "NyanCatTW1/irminsul@${PKGVER}" --match "linux" -o "SBUILD_TEMP/${PKG}" --yes --extract --extract-dir "${SBUILD_OUTDIR}"
+  shell: bash
