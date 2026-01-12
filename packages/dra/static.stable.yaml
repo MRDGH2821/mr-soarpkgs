@@ -63,5 +63,4 @@ x_exec:
     tar -xzf "SBUILD_TEMP/${PKG}" -C "${temp_extract}"
     # Find and move the binary to output directory
     find "${temp_extract}" -type f -executable -exec mv {} "${SBUILD_OUTDIR}/" \;
-
   shell: bash
