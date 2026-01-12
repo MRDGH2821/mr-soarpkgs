@@ -1,0 +1,51 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+app_id: io.github.Matteo842.SaveState
+category:
+  - Utility
+description: A versatile game save backup manager, featuring Steam detection, Minecraft support, drag & drop, desktop shortcuts and emulator compatible.
+desktop:
+  url: https://raw.githubusercontent.com/Matteo842/SaveState/refs/heads/main/io.github.Matteo842.SaveState.desktop
+homepage:
+  - https://github.com/Matteo842/SaveState/
+icon:
+  url: https://raw.githubusercontent.com/Matteo842/SaveState/refs/heads/main/io.github.Matteo842.SaveState.png
+license:
+  - id: GPL3
+    url: https://raw.githubusercontent.com/Matteo842/SaveState/refs/heads/main/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - Read https://github.com/Matteo842/SaveState?tab=readme-ov-file for usage instructions.
+pkg: SaveState
+pkg_id: mr-soarpkgs-github.com.Matteo842.SaveState
+pkg_type: appimage
+provides:
+  - SaveState
+repology:
+  - SaveState
+src_url:
+  - https://github.com/Matteo842/SaveState/
+tag:
+  - automation
+  - backup
+  - desktop-app
+  - game
+  - games
+  - gui
+  - minecraft
+  - open-source
+  - pyside6
+  - python
+  - save
+  - save-manager
+  - savegame
+  - steam
+  - video-game
+  - windows
+x_exec:
+  os:
+    - linux
+  pkgver: curl -qfsSL "https://api.github.com/repos/Matteo842/SaveState/releases/latest" | jq -r '.tag_name'
+  run: soar dl "https://github.com/Matteo842/SaveState" --match "appimage" -o "${SBUILD_OUTDIR}/${PKG}" --yes
+  shell: bash

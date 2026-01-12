@@ -38,6 +38,7 @@
     "pkgver",
     "prek",
     "pycache",
+    "pyside",
     "sbuild",
     "soarpkgs",
     "stefanzweifel",
