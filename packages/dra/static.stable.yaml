@@ -1,0 +1,67 @@
+#!/SBUILD ver @v1.0.0
+_disabled: false
+category:
+  - Utility
+description: A command line tool to download release assets from GitHub.
+homepage:
+  - https://github.com/devmatteini/dra/
+license:
+  - id: MIT
+    url: https://raw.githubusercontent.com/devmatteini/dra/refs/heads/main/LICENSE
+maintainer:
+  - MRDGH2821 (https://github.com/MRDGH2821)
+note:
+  - Refer https://github.com/devmatteini/dra?tab=readme-ov-file#usage to see usage instructions.
+pkg: dra
+pkg_id: mr-soarpkgs-github.com.devmatteini.dra
+pkg_type: static
+provides:
+  - dra
+repology:
+  - dra
+src_url:
+  - https://github.com/devmatteini/dra/
+tag:
+  - automation
+  - cli
+  - command-line
+  - github-releases
+  - release-assets
+  - releases
+  - rust
+  - rust-lang
+  - tool
+x_exec:
+  arch:
+    - x86_64
+    - aarch64
+  os:
+    - linux
+  pkgver: curl -qfsSL "https://api.github.com/repos/devmatteini/dra/releases/latest" | jq -r '.tag_name'
+  run: |
+    detect_arch() {
+      case "$(uname -m)" in
+      x86_64 | amd64) echo "x86_64" ;;
+      aarch64 | arm64) echo "aarch64" ;;
+      arm*) echo "arm" ;;
+      *) exit 1 ;;
+      esac
+    }
+    detect_libc() {
+      ldd_output=$(ldd --version 2>&1)
+      case "${ldd_output}" in
+      *musl*) echo "musl" ;;
+      *gnueabihf*) echo "gnueabihf" ;;
+      *) echo "gnu" ;;
+      esac
+    }
+    arch=$(detect_arch)
+    libc=$(detect_libc)
+    soar dl "https://github.com/devmatteini/dra" --match "${arch},linux,${libc}" -o "SBUILD_TEMP/${PKG}" --yes
+    temp_extract="SBUILD_TEMP/extract_$$"
+    mkdir -p "${temp_extract}"
+    tar -xzf "SBUILD_TEMP/${PKG}" -C "${temp_extract}"
+    # Find and move the binary to output directory
+    find "${temp_extract}" -type f -executable -exec mv {} "${SBUILD_OUTDIR}/" \;
+
+  shell: bash
