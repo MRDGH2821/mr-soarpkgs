@@ -1,0 +1,85 @@
+jobs:
+  build:
+    if: needs.validate.outputs.valid == 'true'
+    needs: validate
+    secrets: inherit
+    uses: ./.github/workflows/matrix_builds.yaml
+    with:
+      debug: true
+      ghcr-url: ${{ format('ghcr.io/{0}', github.repository_owner) }}
+      host: ${{ inputs.host }}
+      logs: true
+      metadata-release: false
+      pkg-family: ${{ github.event.repository.name }}
+      rebuild: true
+      sbuild-url: https://raw.githubusercontent.com/${{ github.repository }}/refs/heads/main/${{ needs.validate.outputs.recipe }}
+  validate:
+    outputs:
+      recipe: ${{ steps.validate.outputs.recipe }}
+      valid: ${{ steps.validate.outputs.valid }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - id: validate
+        name: Validate recipe
+        run: |
+          RECIPE="${{ inputs.recipe }}"
+
+          # Find all available recipes
+          RECIPES=$(find binaries packages -name '*.yaml' -type f 2>/dev/null | sort)
+          RECIPE_COUNT=$(echo "$RECIPES" | wc -l)
+
+          # Generate job summary with available recipes
+          {
+            echo "## Available Recipes ($RECIPE_COUNT)"
+            echo ""
+            echo "### Binaries"
+            echo '```'
+            echo "$RECIPES" | grep "^binaries/" || echo "(none)"
+            echo '```'
+            echo ""
+            echo "### Packages"
+            echo '```'
+            echo "$RECIPES" | grep "^packages/" || echo "(none)"
+            echo '```'
+          } >> $GITHUB_STEP_SUMMARY
+
+          if [ -z "$RECIPE" ]; then
+            echo "::notice::No recipe specified. Check job summary for available recipes."
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if [ ! -f "$RECIPE" ]; then
+            echo "::error::Recipe not found: $RECIPE"
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          echo "recipe=$RECIPE" >> $GITHUB_OUTPUT
+          echo "valid=true" >> $GITHUB_OUTPUT
+name: Manual Build Test
+on:
+  workflow_dispatch:
+    inputs:
+      cache_type:
+        default: auto
+        description: Cache type (auto-detected from path if not specified)
+        options:
+          - auto
+          - bincache
+          - pkgcache
+        type: choice
+      host:
+        default: x86_64-Linux
+        description: Target host
+        options:
+          - ALL
+          - x86_64-Linux
+          - aarch64-Linux
+        type: choice
+      recipe:
+        default: ""
+        description: Recipe path (e.g., binaries/hello/static.yaml) or leave empty to list all
+        type: string
